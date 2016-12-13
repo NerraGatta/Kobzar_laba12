@@ -2,17 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class KeyForm extends JDialog {
+public class NewFileForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JLabel KeyLabel;
-    private JTextField KeytextField;
+    private JTextField NewFilenametextField;
+    private JLabel NewFilename;
     
-    private String key = null;
+    String filename;
     
-    public KeyForm() {
-        //super(parent, true);
+    public String getFilename() {
+        return filename;
+    }
+    
+    public NewFileForm() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -43,30 +46,31 @@ public class KeyForm extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
     
-    public String getkey() {
-        return key;
-    }
-    
     private void onOK() {
-        // add your code here
-        key = KeytextField.getText();
-        //KeytextField.setText("");
-        dispose();
+        try {
+            filename = NewFilenametextField.getText();
+            if (!filename.contains(".dat")) {
+                throw new IllegalArgumentException("Incorrect filename!");
+            }
+            dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
     
     private void onCancel() {
         // add your code here if necessary
+        filename = "";
         dispose();
     }
     
     public static void main(String[] args) {
-        KeyForm dialog = new KeyForm();
+        NewFileForm dialog = new NewFileForm();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
@@ -106,11 +110,11 @@ public class KeyForm extends JDialog {
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel3, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        KeyLabel = new JLabel();
-        KeyLabel.setText("Key");
-        panel3.add(KeyLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        KeytextField = new JTextField();
-        panel3.add(KeytextField, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Write name of New File:");
+        panel3.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        NewFilenametextField = new JTextField();
+        panel3.add(NewFilenametextField, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
     }
     
     /**

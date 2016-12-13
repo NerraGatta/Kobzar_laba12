@@ -28,8 +28,8 @@ public class AppendDataForm extends JDialog {
     
     private static Bill bill = null;
     
-    public AppendDataForm(JFrame parent) {
-        super(parent, true);
+    public AppendDataForm() {
+        //super(parent, true);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -62,7 +62,8 @@ public class AppendDataForm extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     
         pack();
-        //setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     
     private void onOK() {
@@ -154,10 +155,10 @@ public class AppendDataForm extends JDialog {
     }
     
     public static void main(String[] args) {
-        /*AppendDataForm dialog = new AppendDataForm();
+        AppendDataForm dialog = new AppendDataForm();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);*/
+        System.exit(0);
     }
     
     {
